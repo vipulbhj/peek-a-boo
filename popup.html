@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Peek a Boo</title>
+    <style>
+      main {
+        min-width: 200px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      tbody {
+        display: flex;
+        gap: 10px;
+      }
+
+      table > tbody > tr > td {
+        width: 200px;
+        text-overflow: ellipsis;
+      }
+    </style>
+    <script src="popup.js"></script>
+  </head>
+  <body>
+    <main>
+      <button id="select-area">Select area to be hidden</button>
+      <table>
+        <thead>
+          <tr>
+            Page
+          </tr>
+          <tr>
+            Status
+          </tr>
+        </thead>
+        <tbody id="data-table"></tbody>
+      </table>
+    </main>
+  </body>
+</html>
