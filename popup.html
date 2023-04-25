@@ -9,14 +9,11 @@
         flex-direction: column;
       }
 
-      tbody {
+      .container {
         display: flex;
-        gap: 10px;
-      }
-
-      table > tbody > tr > td {
-        width: 200px;
-        text-overflow: ellipsis;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
       }
     </style>
     <script src="popup.js"></script>
@@ -24,17 +21,7 @@
   <body>
     <main>
       <button id="select-area">Select area to be hidden</button>
-      <table>
-        <thead>
-          <tr>
-            Page
-          </tr>
-          <tr>
-            Status
-          </tr>
-        </thead>
-        <tbody id="data-table"></tbody>
-      </table>
+      <div class="container" id="data"></div>
     </main>
   </body>
 </html>

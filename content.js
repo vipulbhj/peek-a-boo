@@ -15,9 +15,25 @@ let startY = 0;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "startSelection") {
-    console.log("here");
     selectAreaMessageSession = true;
     document.body.style.cursor = "crosshair";
+  }
+});
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "drawRect") {
+    const { x, y, width, height } = message.coords;
+    selectionDiv.style.left = `${x}px`;
+    selectionDiv.style.top = `${y}px`;
+    selectionDiv.style.width = `${width}px`;
+    selectionDiv.style.height = `${height}px`;
+    selectionDiv.style.display = "block";
+  }
+});
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "clearRect") {
+    selectionDiv.style.display = "none";
   }
 });
 
@@ -34,7 +50,6 @@ document.addEventListener("mousemove", (event) => {
 });
 
 document.addEventListener("mousedown", (event) => {
-  console.log("mousedown", selectingArea, selectAreaMessageSession);
   selectingArea = true;
   if (selectingArea && selectAreaMessageSession) {
     startX = event.pageX;
@@ -43,23 +58,20 @@ document.addEventListener("mousedown", (event) => {
   }
 });
 
-// Listen for mouseup events on the page
 document.addEventListener("mouseup", (event) => {
-  selectingArea = false;
-  selectAreaMessageSession = false;
   document.body.style.cursor = "initial";
   if (selectingArea && selectAreaMessageSession) {
     const x = Math.min(startX, event.pageX);
     const y = Math.min(startY, event.pageY);
     const width = Math.abs(event.pageX - startX);
     const height = Math.abs(event.pageY - startY);
-    selectingArea = false;
-    selectionDiv.style.display = "none";
 
-    // This is the problematic bit. I want to send a message to the background script
     chrome.runtime.sendMessage({
       action: "selectionComplete",
       coords: { x, y, width, height },
     });
   }
+  // Cleanup
+  selectingArea = false;
+  selectAreaMessageSession = false;
 });

@@ -1,10 +1,9 @@
-// This is the problematic bit. I want to receive a message from the content script
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log(message);
+chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
   if (message.action === "selectionComplete") {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      const url = tabs[0].url;
-      chrome.storage.local.set({ [url]: message.coords });
-    });
+    const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+    const url = tabs[0].url;
+    console.log({ url, message, tabs });
+    chrome.storage.local.set({ [url]: message.coords });
   }
+  sendResponse();
 });
