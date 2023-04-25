@@ -13,25 +13,29 @@ let selectAreaMessageSession = false;
 let startX = 0;
 let startY = 0;
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+function drawRect(coords) {
+  const { x, y, width, height } = coords;
+  selectionDiv.style.left = `${x}px`;
+  selectionDiv.style.top = `${y}px`;
+  selectionDiv.style.width = `${width}px`;
+  selectionDiv.style.height = `${height}px`;
+  selectionDiv.style.display = "block";
+}
+
+chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "startSelection") {
     selectAreaMessageSession = true;
     document.body.style.cursor = "crosshair";
   }
 });
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "drawRect") {
-    const { x, y, width, height } = message.coords;
-    selectionDiv.style.left = `${x}px`;
-    selectionDiv.style.top = `${y}px`;
-    selectionDiv.style.width = `${width}px`;
-    selectionDiv.style.height = `${height}px`;
-    selectionDiv.style.display = "block";
+    drawRect(message.coords);
   }
 });
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((message) => {
   if (message.action === "clearRect") {
     selectionDiv.style.display = "none";
   }
@@ -75,3 +79,11 @@ document.addEventListener("mouseup", (event) => {
   selectingArea = false;
   selectAreaMessageSession = false;
 });
+
+// Initialize
+(async () => {
+  const data = await chrome.storage.local.get(window.location.href);
+  if (Object.keys(data).length === 0) return;
+  const { coords, status } = data[window.location.href];
+  if (status === "Active") drawRect(coords);
+})();
