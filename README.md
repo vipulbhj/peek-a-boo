@@ -1,5 +1,17 @@
 # Peek a Boo
 
+## Setup
+
+- Clone the repo, maybe `git clone git@github.com:vipulbhj/peek-a-boo.git`
+- Install deps for build `npm install`
+
+## Build:
+
+- For Chrome and Chromium Browsers use `npm run build:chrome`
+- For Firefox use `npm run build:firefox`
+
+## Random Information
+
 Short copy:
 
 Say "Peek-a-Boo" to screen sharing woes! With our Chrome extension, you can hide any part of your screen while sharing. Try Peek-a-Boo now!
