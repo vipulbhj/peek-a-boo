@@ -1,0 +1,24 @@
+{
+  "name": "peek-a-boo",
+  "version": "1.0.0",
+  "description": "Short copy:",
+  "main": "none.js",
+  "scripts": {
+    "build:chrome": "gulp buildChrome",
+    "build:firefox": "gulp buildFirefox"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vipulbhj/peek-a-boo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vipulbhj/peek-a-boo/issues"
+  },
+  "homepage": "https://github.com/vipulbhj/peek-a-boo#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-rename": "^2.0.0"
+  }
+}

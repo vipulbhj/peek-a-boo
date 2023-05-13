@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "name": "Peek-a-Boo",
+  "manifest_version": 3,
+  "description": "Say \"Peek-a-Boo\" to screen sharing woes! With Peek-a-Boo, you can hide any part of your screen. Try Peek-a-Boo now",
+  "permissions": ["tabs", "activeTab", "storage"],
+  "icons": {
+    "16": "images/icon16.png",
+    "32": "images/icon32.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false,
+    "type": "module"
+  }
+}
